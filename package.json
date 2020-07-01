@@ -1,0 +1,17 @@
+{
+  "name": "contentful-back-up-poc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "contentfulExport.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "contentful-export": "^7.9.23",
+    "contentful-import": "^7.8.7",
+    "dotenv": "^8.2.0",
+    "yargs": "^15.3.1"
+  }
+}
