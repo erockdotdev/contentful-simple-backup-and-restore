@@ -20,6 +20,7 @@ function backupContentful(environment="master") {
     environmentId: environment,
     exportDir: LOCAL_BACKUP_PATH,
     useVerboseRenderer: false,
+    downloadAssets:true,
     saveFile: true,
     ...contentfulConfig,
   };
