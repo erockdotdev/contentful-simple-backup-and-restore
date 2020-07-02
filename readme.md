@@ -1,53 +1,87 @@
-Contentful back up POC
+# Contentful backup POC
 
-This is based off of these packages
-https://github.com/contentful/contentful-import
-https://github.com/contentful/contentful-export
+This app used [Contentful Export](https://github.com/contentful/contentful-expor) and [Contentful Import](https://github.com/contentful/contentful-import) to backup and restore a Contentful space's Content Model, Content and Assets.
 
+## Getting Started
 
----------
+Clone repo and `npm install`
+Add Contentful space id and content management token to .env
 
+## Backing up an Environment
 
-Backing up an Environment 
+Backups are suppoerted for the master environment as the default. However, other enviroments can be passed in to create a backup file. This is especialy helpful if we move to a master alias work flow.
 
-node contentfulBackup ( defaults to master )
-or select an environment to back up with 
-node contentfulBackup --environment=test-import or node contentfulBackup -e=test-import
-if successful you will see something like 
-File [contentful-backup_test-import_2020-07-02T14:12:04.240Z.json] successfully downloaded from test-import. 🚀
-and the file will be in contentful_backup
+To backup the master environment
+run `node contentfulBackup`
 
-Restoring an Environment 
+If successful you will see a message like this
+```File [contentful-backup_master_2020-07-02T14:12:04.240Z.json] successfully downloaded from test-import. 🚀```
 
-Both the environment you wish to restore to and the file to restore from are required 
-(it does not default to master to avoid accidentally restoring to master)
-node contentfulRestore.js --backupFile=contentful-backup_test-import_2020-07-01T20:38:22.068Z.json --environment=master
+To run a back up on an environment other than master run
+
+`node contentfulBackup --environment=environment_name`
+
+or with an alias `node contentfulBackup -e=environment_name`
+
+for example:
+
+`node contentfulBackup --environment=test-import`
+
+or
+
+`node contentfulBackup -e=test-import`
+
+If you get an error when running the above please double check your environment name is correct.
+
+## Restoring an Environment
+
+To import the backup file to a new environment you'll need to specify the backup file and which environment you would like to target for the restore. This does not default to master as to avoid unintentionally restoring to master when working with lower environments.
+
+To restore an environment
+run
+
+`node contentfulRestore.js --environment=environment_name --backupFile=backup_file_name.json`
+
+For example, if I want to restore master with the file `contentful-backup_test-import_2020-07-01T20:38:22.068Z.json`
+
+I would run
+`node contentfulRestore.js --environment=master --backupFile=contentful-backup_test-import_2020-07-01T20:38:22.068Z.json`
 or with aliases
-node contentfulRestore.js -f=contentful-backup_test-import_2020-07-01T20:38:22.068Z.json -e=master
+`node contentfulRestore.js -e=master -f=contentful-backup_test-itest-importmport_2020-07-01T20:38:22.068Z.json`
 
 
+### Notes
 
-File Names
-they are prefixed with followed by the name of the environment copied from and a timestamp
-contentful-backup_[environment]_[timestamp]
-contentful-backup_test-import_2020-07-02T14:20:15.220Z.json
+#### File Names
 
-ENV 
-CONTENTFUL_SPACED_ID // which contentful environment we are working from 
-CONTENTFUL_MANAGEMENT_TOKEN // Read write access to the contentful space
+contentful-backup\_[environment]\_[timestamp]
+
+File names are prefixed with `contentful-backup_` followed by the name of the environment copied from and a timestamp.
+For example a back up from an environment called `test-import` would look like:
+`contentful-backup_test-import_2020-07-02T14:20:15.220Z.json`
+
+#### Environment Variables
+
+CONTENTFUL\_SPACED\_ID:  the contentful space we are conecting to.
+CONTENTFUL\_MANAGEMENT\_TOKEN: Read write access to the contentful space.
 
 
-if we want to automate this completely the we can use and AWS Lambda function as described here
+#### Notes
+
+If we want to automate this completely the we can use and AWS Lambda function as described here
 https://www.contentful.com/blog/2019/05/15/configuring-automatic-backups-for-contentful/
 
-Otherwise this would be a manual job to run the backup script before each deploy
+Otherwise, this would be a manual job to run the backup script before each deploy
+
+using js docs
 
 Update js docs
 npm install -g jsdoc
-jsdoc contentfulBackup.js  contentfulRestore.js 
+jsdoc contentfulBackup.js  contentfulRestore.js
 
 
-Notes: 
+#### More Notes:
+
 It looks like restores are addative, meaning if you have new data not in the restore and run a restore you will get the restore and the new data.
 
 This would probably be most efficent to be set up as a lambda and have both daily jobs to run a back up and have a webhook triggered to back up when a deploy is initiated ( and also something to clear old backups after a period of time )
