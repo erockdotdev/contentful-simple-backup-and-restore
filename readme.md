@@ -5,14 +5,17 @@ This app used [Contentful Export](https://github.com/contentful/contentful-expor
 ## Getting Started
 
 Clone repo and `npm install`
+
+Copy .env.example and rename to .env
+
 Add Contentful space id and content management token to .env
 
 ## Backing up an Environment
 
-Backups are suppoerted for the master environment as the default. However, other enviroments can be passed in to create a backup file. This is especialy helpful if we move to a master alias work flow.
+Backups are suppoerted for the master environment as the default. However, other enviroments can be passed in to create a backup file. Only references to assets are downloaded by default. To back up assets use the -a flag.
 
 To backup the master environment
-run 
+run
 
 `node contentfulBackup`
 
@@ -35,6 +38,10 @@ for example:
 or
 
 `node contentfulBackup -e=test-import`
+
+and to download with asset files 
+
+`node contentfulBackup -e=test-import -a`
 
 If you get an error when running the above please double check your environment name is correct.
 

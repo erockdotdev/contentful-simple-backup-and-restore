@@ -12,15 +12,16 @@ const argv = require("./config/yargs/backup.yargs-config");
 /**
  * Exports data from a Contentful environment.
  * @param {string} environment - Target environment to back up data from. Defaults to master if no env is provided.
+ * @param {boolean} downloadAssets - Download asset files in addition to data model and entries.
  */
-function backupContentful(environment="master") {
+function backupContentful(environment="master", downloadAssets=false) {
   const file_name = `contentful-backup_${environment}_${DATE}.json`;
   const options = {
     contentFile: file_name,
     environmentId: environment,
+    downloadAssets: downloadAssets,
     exportDir: LOCAL_BACKUP_PATH,
     useVerboseRenderer: false,
-    downloadAssets:true,
     saveFile: true,
     ...contentfulConfig,
   };
@@ -36,4 +37,4 @@ function backupContentful(environment="master") {
     });
 }
 
-backupContentful(argv.environment);
+backupContentful(argv.environment, argv.downloadAssets);
