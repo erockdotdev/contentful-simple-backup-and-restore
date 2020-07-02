@@ -1,8 +1,8 @@
 require("dotenv").config();
 
 module.exports = {
-  spaceId: process.env.SPACED_ID,
-  managementToken: process.env.MANAGEMENT_TOKEN,
+  spaceId: process.env.CONTENTFUL_SPACED_ID,
+  managementToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN,
 };
 
 

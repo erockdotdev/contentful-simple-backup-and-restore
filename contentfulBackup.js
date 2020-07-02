@@ -9,14 +9,18 @@ const {
 const argv = require("./config/yargs/backup.yargs-config");
 
 
+/**
+ * Exports data from a Contentful environment.
+ * @param {string} environment - Target environment to back up data from. Defaults to master if no env is provided.
+ */
 function backupContentful(environment="master") {
   const file_name = `contentful-backup_${environment}_${DATE}.json`;
   const options = {
     contentFile: file_name,
+    environmentId: environment,
     exportDir: LOCAL_BACKUP_PATH,
     useVerboseRenderer: false,
     saveFile: true,
-    environmentId: environment,
     ...contentfulConfig,
   };
     return contentfulExport(options).then(()=>{

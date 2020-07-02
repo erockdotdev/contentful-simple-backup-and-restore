@@ -6,7 +6,11 @@ const {
 } = require("./config/app-config");
 const argv = require("./config/yargs/restore.yargs-config");
 
-
+/**
+ * Import backup Contentful data to target Contentful environment.
+ * @param {string} backupFile - File containing previously backed up data.
+ * @param {string} environment - Target environment to restore backed up data to.
+ */
 function restoreContentful(backupFile, environment) {
   const options = {
     contentFile: `contentful_backup/${backupFile}`,

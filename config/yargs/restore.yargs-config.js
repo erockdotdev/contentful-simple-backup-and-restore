@@ -1,6 +1,6 @@
 module.exports = require("yargs")
   .option("backupFile", {
-    alias: "b",
+    alias: "f",
     type: "string",
     description: "File containing contentful back up data",
   })
