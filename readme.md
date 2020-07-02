@@ -27,7 +27,7 @@ To run a back up on an environment other than master run
 
 `node contentfulBackup --environment=environment_name`
 
-or with an alias 
+or with an alias
 
 `node contentfulBackup -e=environment_name`
 
@@ -39,7 +39,7 @@ or
 
 `node contentfulBackup -e=test-import`
 
-and to download with asset files 
+and to download with asset files
 
 `node contentfulBackup -e=test-import -a`
 
@@ -63,7 +63,6 @@ You would run
 `node contentfulRestore.js --environment=master --backupFile=contentful-backup_test-import_2020-07-01T20:38:22.068Z.json`
 or with aliases
 `node contentfulRestore.js -e=master -f=contentful-backup_test-itest-importmport_2020-07-01T20:38:22.068Z.json`
-
 
 ### Notes
 
@@ -107,5 +106,3 @@ If a back up fails we should have some service to monitor that.
 
 Add discovery notes questions to confluence
 
-
-make working example of assets
