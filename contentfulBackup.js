@@ -14,9 +14,9 @@ const argv = require("./config/yargs/backup.yargs-config");
  * @param {boolean} downloadAssets - Download asset files in addition to data model and entries. Default is set to false.
  */
 function backupContentful(environment="master", downloadAssets=false) {
-  const file_name = `contentful-backup_${environment}_${DATE}.json`;
+  const fileName = `contentful-backup_${environment}_${DATE}.json`;
   const options = {
-    contentFile: file_name,
+    contentFile: fileName,
     environmentId: environment,
     downloadAssets: downloadAssets,
     exportDir: LOCAL_BACKUP_PATH,
@@ -27,7 +27,7 @@ function backupContentful(environment="master", downloadAssets=false) {
     return contentfulExport(options).then(()=>{
       console.log(
         TERMINAL_FONT_BLUE,
-        `File [${file_name}] successfully downloaded from ${environment}. 🚀`
+        `File [${fileName}] successfully downloaded from ${environment}. 🚀`
       );
     })
     .catch((err) => {

@@ -12,8 +12,9 @@ const argv = require("./config/yargs/restore.yargs-config");
  * @param {string} environment - Target environment to restore backed up data to.
  */
 function restoreContentful(backupFile, environment) {
+  const fileName = `contentful_backup/${backupFile}`;
   const options = {
-    contentFile: `contentful_backup/${backupFile}`,
+    contentFile: fileName,
     environmentId: environment,
     ...contentfulConfig,
   };

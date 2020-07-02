@@ -105,4 +105,3 @@ We should also demo a few restore scenarios to make sure were confident in the b
 If a back up fails we should have some service to monitor that.
 
 Add discovery notes questions to confluence
-
