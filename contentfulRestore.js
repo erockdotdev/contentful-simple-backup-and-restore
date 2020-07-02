@@ -1,5 +1,9 @@
 const contentfulImport = require("contentful-import");
-const contentfulConfig = require("./config/contentfulConfig");
+const contentfulConfig = require("./config/contentful-config");
+const {
+  TERMINAL_FONT_BLUE,
+  TERMINAL_FONT_RED,
+} = require("./config/app-config");
 const argv = require("./config/yargs/restore.yargs-config");
 
 
@@ -10,10 +14,10 @@ function restoreContentful(backupFile, environment) {
     ...contentfulConfig,
   };
   return contentfulImport(options).then(()=>{
-    `File [${backupFile}] successfully imported from ${environment} environment. 🚀`;
+    console.log(TERMINAL_FONT_BLUE, `File [${backupFile}] successfully imported to ${environment} environment. 🚀`);
   })
-  .catch((error)=>{
-    console.error(`On no! Some errors occured 🤯:`, err);
+  .catch((err)=>{
+    console.error(TERMINAL_FONT_RED, `On no! Some errors occured 🤯:`, err);
   })
 }
 
